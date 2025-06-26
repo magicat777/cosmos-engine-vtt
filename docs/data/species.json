@@ -1,0 +1,39 @@
+{
+  "species": [
+    {
+      "id": "human",
+      "name": "Human",
+      "description": "Versatile and adaptable baseline humans",
+      "attributes": {"presence": 0, "resolve": 0, "intellect": 0, "might": 0, "awareness": 0, "coordination": 0},
+      "traits": ["Adaptable", "Versatile"]
+    },
+    {
+      "id": "synthetic",
+      "name": "Synthetic",
+      "description": "Artificial beings with advanced capabilities",
+      "attributes": {"presence": -1, "resolve": 2, "intellect": 1, "might": 0, "awareness": 1, "coordination": 1},
+      "traits": ["Artificial", "Enhanced Processing"]
+    },
+    {
+      "id": "gravitae",
+      "name": "Gravitae",
+      "description": "Beings adapted to high-gravity environments",
+      "attributes": {"presence": 0, "resolve": 1, "intellect": 0, "might": 2, "awareness": 0, "coordination": -1},
+      "traits": ["Dense Physiology", "Gravity Adapted"]
+    },
+    {
+      "id": "verdathi",
+      "name": "Verdathi",
+      "description": "Plant-like beings with photosynthetic abilities",
+      "attributes": {"presence": 1, "resolve": 1, "intellect": 0, "might": -1, "awareness": 1, "coordination": 0},
+      "traits": ["Photosynthetic", "Nature Affinity"]
+    },
+    {
+      "id": "selenites",
+      "name": "Selenites",
+      "description": "Silicon-based beings from low-gravity moons",
+      "attributes": {"presence": 0, "resolve": 0, "intellect": 1, "might": 1, "awareness": 0, "coordination": 1},
+      "traits": ["Silicon Biology", "Low-G Adapted"]
+    }
+  ]
+}

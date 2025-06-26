@@ -10,7 +10,7 @@ export class Config {
         // API endpoints
         this.api = {
             cosmosRPGRepo: 'https://raw.githubusercontent.com/magicat777/CosmosEngineRPG/main/',
-            localData: '/data/',
+            localData: './data/',
             version: 'v0.1.0'
         };
         
@@ -122,11 +122,14 @@ export class Config {
         return this.app.offlineMode || !navigator.onLine;
     }
     
-    // Get appropriate data source based on offline status
+    // Get appropriate data source - try local first, then fallback to remote
     getDataSource(path) {
-        if (this.isOffline()) {
-            return this.api.localData + path;
-        }
+        // Always try local data first for VTT
+        return this.api.localData + path;
+    }
+    
+    // Get remote data source for fallback
+    getRemoteDataSource(path) {
         return this.api.cosmosRPGRepo + 'data/' + path;
     }
 }

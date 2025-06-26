@@ -1,41 +1,40 @@
 {
-  "version": "1.0.0",
-  "attributes": {
-    "presence": {
+  "attributes": [
+    {
+      "id": "presence",
       "name": "Presence",
       "abbreviation": "PRE",
-      "description": "Charisma, leadership, and social influence",
-      "color": "#9b59b6"
+      "description": "Force of personality, leadership ability, and social influence"
     },
-    "resolve": {
+    {
+      "id": "resolve",
       "name": "Resolve",
-      "abbreviation": "RES",
-      "description": "Willpower, mental fortitude, and determination",
-      "color": "#e74c3c"
+      "abbreviation": "RES", 
+      "description": "Mental fortitude, willpower, and resistance to psychological effects"
     },
-    "intellect": {
+    {
+      "id": "intellect",
       "name": "Intellect",
       "abbreviation": "INT",
-      "description": "Intelligence, reasoning, and knowledge",
-      "color": "#3498db"
+      "description": "Reasoning ability, memory, and analytical thinking"
     },
-    "might": {
+    {
+      "id": "might",
       "name": "Might",
       "abbreviation": "MIG",
-      "description": "Physical strength and endurance",
-      "color": "#e67e22"
+      "description": "Physical strength, endurance, and bodily power"
     },
-    "awareness": {
+    {
+      "id": "awareness",
       "name": "Awareness",
       "abbreviation": "AWA",
-      "description": "Perception, intuition, and alertness",
-      "color": "#2ecc71"
+      "description": "Sensory perception, intuition, and environmental awareness"
     },
-    "coordination": {
+    {
+      "id": "coordination",
       "name": "Coordination",
       "abbreviation": "COO",
-      "description": "Dexterity, agility, and precision",
-      "color": "#f39c12"
+      "description": "Agility, dexterity, and fine motor control"
     }
-  }
+  ]
 }

@@ -81,30 +81,62 @@ export class DataManager {
             return stored.data;
         }
         
-        // Fetch from network
+        // Fetch from network - try local first, then remote
+        let lastError;
+        
+        // Try local data first
         try {
-            const url = this.config.getDataSource(filename);
-            const response = await fetch(url);
+            const localUrl = this.config.getDataSource(filename);
+            console.log(`Trying local data: ${localUrl}`);
+            const response = await fetch(localUrl);
             
-            if (!response.ok) {
-                throw new Error(`Failed to fetch ${filename}: ${response.status}`);
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Cache in memory
+                this.cache.set(filename, data);
+                
+                // Store in IndexedDB
+                await this.saveToDB('gameData', {
+                    id: filename,
+                    data: data,
+                    timestamp: Date.now()
+                });
+                
+                return data;
+            } else {
+                throw new Error(`Local fetch failed: ${response.status}`);
             }
-            
-            const data = await response.json();
-            
-            // Cache in memory
-            this.cache.set(filename, data);
-            
-            // Store in IndexedDB
-            await this.saveToDB('gameData', {
-                id: filename,
-                data: data,
-                timestamp: Date.now()
-            });
-            
-            return data;
         } catch (error) {
-            console.error(`Failed to load ${filename}:`, error);
+            console.log(`Local fetch failed for ${filename}, trying remote...`);
+            lastError = error;
+        }
+        
+        // Try remote as fallback
+        try {
+            const remoteUrl = this.config.getRemoteDataSource(filename);
+            console.log(`Trying remote data: ${remoteUrl}`);
+            const response = await fetch(remoteUrl);
+            
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Cache in memory
+                this.cache.set(filename, data);
+                
+                // Store in IndexedDB
+                await this.saveToDB('gameData', {
+                    id: filename,
+                    data: data,
+                    timestamp: Date.now()
+                });
+                
+                return data;
+            } else {
+                throw new Error(`Remote fetch failed: ${response.status}`);
+            }
+        } catch (error) {
+            console.error(`Failed to load ${filename} from both local and remote:`, error);
             
             // Fall back to stored data if available
             if (stored) {

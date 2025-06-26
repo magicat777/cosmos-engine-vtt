@@ -1,0 +1,12 @@
+{
+  "equipment": [
+    {"id": "energy_pistol", "name": "Energy Pistol", "type": "weapon", "damage": "1d10", "range": "short", "cost": 500},
+    {"id": "combat_armor", "name": "Combat Armor", "type": "armor", "defense": "+2", "cost": 1000},
+    {"id": "medkit", "name": "Medical Kit", "type": "gear", "uses": 5, "cost": 200},
+    {"id": "datapad", "name": "Data Pad", "type": "gear", "description": "Portable computer terminal", "cost": 300},
+    {"id": "plasma_rifle", "name": "Plasma Rifle", "type": "weapon", "damage": "2d10", "range": "long", "cost": 2000},
+    {"id": "power_armor", "name": "Power Armor", "type": "armor", "defense": "+3", "cost": 5000},
+    {"id": "grav_belt", "name": "Gravity Belt", "type": "gear", "description": "Personal gravity manipulation", "cost": 3000},
+    {"id": "neural_link", "name": "Neural Link", "type": "cybernetic", "description": "Direct brain-computer interface", "cost": 10000}
+  ]
+}

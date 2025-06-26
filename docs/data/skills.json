@@ -1,89 +1,21 @@
 {
-  "version": "1.0.0",
-  "skills": {
-    "combat": {
-      "name": "Combat",
-      "attribute": "coordination",
-      "description": "Melee and ranged combat effectiveness",
-      "specializations": ["Melee", "Ranged", "Heavy Weapons"]
-    },
-    "pilot": {
-      "name": "Pilot",
-      "attribute": "coordination",
-      "description": "Operating vehicles and spacecraft",
-      "specializations": ["Ground", "Air", "Space", "Capital Ships"]
-    },
-    "stealth": {
-      "name": "Stealth",
-      "attribute": "coordination",
-      "description": "Moving unseen and unheard",
-      "specializations": ["Urban", "Wilderness", "Electronic"]
-    },
-    "athletics": {
-      "name": "Athletics",
-      "attribute": "might",
-      "description": "Physical activities and sports",
-      "specializations": ["Running", "Swimming", "Climbing", "Zero-G"]
-    },
-    "survival": {
-      "name": "Survival",
-      "attribute": "might",
-      "description": "Enduring harsh conditions",
-      "specializations": ["Desert", "Arctic", "Space", "Urban"]
-    },
-    "intimidation": {
-      "name": "Intimidation",
-      "attribute": "might",
-      "description": "Frightening or coercing others",
-      "specializations": ["Physical", "Psychological", "Reputation"]
-    },
-    "perception": {
-      "name": "Perception",
-      "attribute": "awareness",
-      "description": "Noticing details and danger",
-      "specializations": ["Visual", "Audio", "Investigation", "Tracking"]
-    },
-    "medical": {
-      "name": "Medical",
-      "attribute": "awareness",
-      "description": "Healing and biological knowledge",
-      "specializations": ["First Aid", "Surgery", "Xenobiology", "Cybernetics"]
-    },
-    "tech": {
-      "name": "Tech",
-      "attribute": "intellect",
-      "description": "Using and repairing technology",
-      "specializations": ["Computers", "Engineering", "Hacking", "AI"]
-    },
-    "knowledge": {
-      "name": "Knowledge",
-      "attribute": "intellect",
-      "description": "Academic and practical learning",
-      "specializations": ["History", "Science", "Culture", "Military"]
-    },
-    "deception": {
-      "name": "Deception",
-      "attribute": "presence",
-      "description": "Lying and misdirection",
-      "specializations": ["Fast Talk", "Disguise", "Forgery", "Acting"]
-    },
-    "persuasion": {
-      "name": "Persuasion",
-      "attribute": "presence",
-      "description": "Convincing others diplomatically",
-      "specializations": ["Diplomacy", "Bargaining", "Seduction", "Politics"]
-    },
-    "command": {
-      "name": "Command",
-      "attribute": "presence",
-      "description": "Leading and inspiring others",
-      "specializations": ["Military", "Naval", "Inspire", "Tactics"]
-    },
-    "discipline": {
-      "name": "Discipline",
-      "attribute": "resolve",
-      "description": "Mental control and focus",
-      "specializations": ["Concentration", "Meditation", "Resist Torture", "Psionics"]
-    }
-  }
+  "skills": [
+    {"id": "academics", "name": "Academics", "attribute": "intellect", "description": "Formal education and scholarly knowledge"},
+    {"id": "acrobatics", "name": "Acrobatics", "attribute": "coordination", "description": "Gymnastic movements and aerial maneuvers"},
+    {"id": "athletics", "name": "Athletics", "attribute": "might", "description": "Physical fitness and sports activities"},
+    {"id": "command", "name": "Command", "attribute": "presence", "description": "Leadership and tactical coordination"},
+    {"id": "combat", "name": "Combat", "attribute": "might", "description": "Armed and unarmed fighting techniques"},
+    {"id": "concentration", "name": "Concentration", "attribute": "resolve", "description": "Mental focus and sustained attention"},
+    {"id": "firearms", "name": "Firearms", "attribute": "coordination", "description": "Operation of ranged weapons"},
+    {"id": "intimidation", "name": "Intimidation", "attribute": "presence", "description": "Inspiring fear or respect through presence"},
+    {"id": "investigation", "name": "Investigation", "attribute": "intellect", "description": "Gathering and analyzing evidence"},
+    {"id": "medicine", "name": "Medicine", "attribute": "intellect", "description": "Medical knowledge and healing techniques"},
+    {"id": "perception", "name": "Perception", "attribute": "awareness", "description": "Noticing details and environmental awareness"},
+    {"id": "performance", "name": "Performance", "attribute": "presence", "description": "Artistic expression and entertainment"},
+    {"id": "persuasion", "name": "Persuasion", "attribute": "presence", "description": "Convincing others through argument"},
+    {"id": "pilot", "name": "Pilot", "attribute": "coordination", "description": "Operating vehicles and spacecraft"},
+    {"id": "stealth", "name": "Stealth", "attribute": "awareness", "description": "Moving unseen and unheard"},
+    {"id": "survival", "name": "Survival", "attribute": "awareness", "description": "Thriving in harsh environments"},
+    {"id": "technology", "name": "Technology", "attribute": "intellect", "description": "Understanding and using advanced systems"}
+  ]
 }
