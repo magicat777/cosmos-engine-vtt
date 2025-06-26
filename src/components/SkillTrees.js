@@ -821,26 +821,64 @@ export class SkillTrees {
     }
     
     confirmUnlock() {
-        if (!this.pendingUnlock) return;
+        if (!this.pendingUnlock || !this.selectedCharacter) return;
+        
+        const nodeId = this.pendingUnlock.id;
+        const cost = this.pendingUnlock.cost;
+        
+        // Check if character has enough XP
+        if ((this.selectedCharacter.xp || 0) < cost) {
+            alert('Not enough XP to unlock this node!');
+            return;
+        }
+        
+        // Update character data
+        this.selectedCharacter.xp = (this.selectedCharacter.xp || 0) - cost;
+        
+        // Add node to unlocked list
+        if (!this.selectedCharacter.unlockedNodes) {
+            this.selectedCharacter.unlockedNodes = [];
+        }
+        this.selectedCharacter.unlockedNodes.push(nodeId);
+        
+        // Store path selection if this is the first node in a path
+        if (this.pendingUnlock.level === 0 && this.pendingUnlock.path) {
+            if (!this.selectedCharacter.skillPaths) {
+                this.selectedCharacter.skillPaths = {};
+            }
+            this.selectedCharacter.skillPaths[this.selectedSkill] = this.pendingUnlock.path.id;
+        }
         
         // Emit unlock event
         this.eventBus.emit('skill:advance', {
+            characterId: this.selectedCharacter.id,
             skill: this.selectedSkill,
-            nodeId: this.pendingUnlock.id,
-            cost: this.pendingUnlock.cost
+            nodeId: nodeId,
+            cost: cost,
+            character: this.selectedCharacter
         });
+        
+        // Save character data
+        this.dataManager.saveCharacter(this.selectedCharacter);
         
         // Update display
         this.hideModal(this.container.querySelector('#node-modal'));
+        this.updateCharacterInfo();
         this.drawSkillTree();
     }
     
     async loadCharacterProgress() {
         // Load character skill progress from data manager
         try {
-            const characterData = await this.dataManager.loadCharacter(this.config.activeCharacterId);
-            if (characterData) {
-                this.loadCharacter(characterData);
+            // Try to get active character ID from localStorage first
+            const savedCharId = localStorage.getItem('cosmos-vtt-active-character');
+            const characterId = savedCharId || this.config.activeCharacterId;
+            
+            if (characterId) {
+                const characterData = await this.dataManager.loadCharacter(parseInt(characterId));
+                if (characterData) {
+                    this.loadCharacter(characterData);
+                }
             }
         } catch (error) {
             console.log('No active character found');

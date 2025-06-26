@@ -12,9 +12,10 @@
  */
 
 export class CharacterSheet {
-    constructor(config, dataManager) {
+    constructor(config, dataManager, eventBus) {
         this.config = config;
         this.dataManager = dataManager;
+        this.eventBus = eventBus;
         this.element = null;
         this.character = this.createNewCharacter();
         this.attributes = null;
@@ -25,6 +26,18 @@ export class CharacterSheet {
         this.load = this.load.bind(this);
         this.export = this.export.bind(this);
         this.import = this.import.bind(this);
+        
+        // Listen for skill advancement events
+        if (this.eventBus) {
+            this.eventBus.on('skill:advance', (data) => {
+                if (data.characterId === this.character.id) {
+                    // Reload character to get updated data
+                    this.character = data.character;
+                    this.render();
+                    this.attachEventListeners();
+                }
+            });
+        }
     }
     
     async init(container) {
@@ -92,6 +105,10 @@ export class CharacterSheet {
             // Specializations
             specializations: {},
             
+            // Skill Trees
+            skillPaths: {},  // Selected paths for each skill
+            unlockedNodes: [],  // Array of unlocked node IDs
+            
             // Derived stats
             hp: 50,
             maxHp: 50,
@@ -107,6 +124,7 @@ export class CharacterSheet {
             
             // Resources
             credits: 1000,
+            xp: 100,  // Starting XP for skill advancement
             
             // Notes
             notes: '',
@@ -170,7 +188,10 @@ export class CharacterSheet {
                     
                     <!-- Skills Section -->
                     <section class="skills-section">
-                        <h3>Skills</h3>
+                        <div class="skills-header">
+                            <h3>Skills</h3>
+                            <button class="btn btn-sm btn-primary" onclick="window.location.hash = '/skilltrees'">View Skill Trees</button>
+                        </div>
                         <div class="skills-grid">
                             ${this.renderSkills()}
                         </div>
@@ -190,6 +211,21 @@ export class CharacterSheet {
                                 <div id="armor-display" class="equipment-item">
                                     ${this.character.equipment.armor || 'None equipped'}
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Resources Section -->
+                    <section class="resources-section">
+                        <h3>Resources</h3>
+                        <div class="resources-grid">
+                            <div class="resource-box">
+                                <label>Credits</label>
+                                <input type="number" id="credits" class="resource-input" value="${this.character.credits}" min="0">
+                            </div>
+                            <div class="resource-box">
+                                <label>Experience Points (XP)</label>
+                                <input type="number" id="xp" class="resource-input" value="${this.character.xp}" min="0">
                             </div>
                         </div>
                     </section>
@@ -318,6 +354,17 @@ export class CharacterSheet {
         // HP tracking
         this.element.querySelector('#current-hp').addEventListener('input', (e) => {
             this.character.hp = parseInt(e.target.value) || 0;
+            this.autoSave();
+        });
+        
+        // Resources
+        this.element.querySelector('#credits').addEventListener('input', (e) => {
+            this.character.credits = parseInt(e.target.value) || 0;
+            this.autoSave();
+        });
+        
+        this.element.querySelector('#xp').addEventListener('input', (e) => {
+            this.character.xp = parseInt(e.target.value) || 0;
             this.autoSave();
         });
         

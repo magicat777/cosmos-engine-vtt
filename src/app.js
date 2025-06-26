@@ -103,7 +103,7 @@ class CosmosEngineVTT {
     async initializeComponents() {
         const componentList = [
             { name: 'DiceRoller', class: DiceRoller, deps: [this.config, this.eventBus] },
-            { name: 'CharacterSheet', class: CharacterSheet, deps: [this.config, this.dataManager] },
+            { name: 'CharacterSheet', class: CharacterSheet, deps: [this.config, this.dataManager, this.eventBus] },
             { name: 'CombatTracker', class: CombatTracker, deps: [this.config, this.dataManager, this.eventBus] },
             { name: 'ScaleManager', class: ScaleManager, deps: [this.config, this.eventBus] },
             { name: 'RulesReference', class: RulesReference, deps: [this.config, this.dataManager] },
