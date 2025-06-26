@@ -7,6 +7,7 @@
 
 import { Router } from './lib/router.js';
 import { EventBus } from './lib/eventBus.js';
+import { stateManager } from './lib/stateManager.js';
 import { Config } from './config.js';
 import { DataManager } from './components/DataManager.js';
 import { PanelSystem } from './components/PanelSystem.js';
@@ -18,15 +19,20 @@ import { CombatTracker } from './components/CombatTracker.js';
 import { ScaleManager } from './components/ScaleManager.js';
 import { RulesReference } from './components/RulesReference.js';
 import { EncounterBuilder } from './components/EncounterBuilder.js';
+import { ImportExport } from './components/ImportExport.js';
 
 class CosmosEngineVTT {
     constructor() {
         this.config = new Config();
         this.eventBus = new EventBus();
+        this.stateManager = stateManager;
         this.router = new Router();
         this.dataManager = new DataManager(this.config);
         this.panels = new PanelSystem();
         this.components = new Map();
+        
+        // Make stateManager available globally for debugging
+        window.appState = this.stateManager;
         
         this.init();
     }
@@ -69,6 +75,7 @@ class CosmosEngineVTT {
         this.router.addRoute('/encounter', () => this.showEncounterBuilder());
         this.router.addRoute('/scales', () => this.showScaleManager());
         this.router.addRoute('/rules', () => this.showRulesReference());
+        this.router.addRoute('/import-export', () => this.showImportExport());
         this.router.addRoute('/settings', () => this.showSettings());
     }
     
@@ -96,6 +103,10 @@ class CosmosEngineVTT {
         // Initialize EncounterBuilder
         const encounterBuilder = new EncounterBuilder(this.config, this.dataManager, this.eventBus);
         this.components.set('encounterBuilder', encounterBuilder);
+        
+        // Initialize ImportExport
+        const importExport = new ImportExport(this.config, this.dataManager, this.stateManager);
+        this.components.set('importExport', importExport);
         
         // More components will be added as they're developed
         console.log('Components initialized:', this.components.size);
@@ -133,6 +144,7 @@ class CosmosEngineVTT {
                         <li><a href="#/encounter">Encounter Builder</a> - Create balanced encounters</li>
                         <li><a href="#/scales">Scale Manager</a> - Convert damage between scales</li>
                         <li><a href="#/rules">Rules Reference</a> - Quick rule lookups</li>
+                        <li><a href="#/import-export">Import/Export</a> - Backup and share data</li>
                     </ul>
                 </div>
             `
@@ -244,6 +256,24 @@ class CosmosEngineVTT {
         const container = document.getElementById('encounter-builder-component');
         if (encounterBuilder && container) {
             encounterBuilder.init(container);
+        }
+    }
+    
+    showImportExport() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'import-export',
+            title: 'Import/Export Manager',
+            content: '<div id="import-export-component"></div>',
+            width: 1000,
+            height: 700
+        });
+        
+        // Initialize import/export manager in the panel
+        const importExport = this.components.get('importExport');
+        const container = document.getElementById('import-export-component');
+        if (importExport && container) {
+            importExport.init(container);
         }
     }
     

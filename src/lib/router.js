@@ -84,6 +84,7 @@ export class Router {
             <a href="#/encounter" class="nav-link" data-route="/encounter">Encounter</a>
             <a href="#/scales" class="nav-link" data-route="/scales">Scales</a>
             <a href="#/rules" class="nav-link" data-route="/rules">Rules</a>
+            <a href="#/import-export" class="nav-link" data-route="/import-export">Data</a>
             <a href="#/settings" class="nav-link" data-route="/settings">Settings</a>
         `;
     }
