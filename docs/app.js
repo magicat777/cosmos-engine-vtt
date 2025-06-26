@@ -45,27 +45,34 @@ class CosmosEngineVTT {
         
         try {
             // Initialize data manager
+            console.log('Initializing data manager...');
             await this.dataManager.init();
             
             // Set up routing
+            console.log('Setting up routes...');
             this.setupRoutes();
             
             // Initialize panel system
+            console.log('Initializing panels...');
             this.panels.init(document.getElementById('main-content'));
             
             // Load saved layout or default
+            console.log('Loading layout...');
             this.loadLayout();
             
             // Initialize components
+            console.log('Initializing components...');
             await this.initializeComponents();
             
             // Start router
+            console.log('Starting router...');
             this.router.start();
             
             console.log('Cosmos Engine VTT initialized successfully');
         } catch (error) {
             console.error('Failed to initialize VTT:', error);
-            this.showError('Failed to initialize application. Please refresh the page.');
+            console.error('Error stack:', error.stack);
+            this.showError(`Failed to initialize application: ${error.message}. Please refresh the page.`);
         }
     }
     
@@ -86,48 +93,31 @@ class CosmosEngineVTT {
     }
     
     async initializeComponents() {
-        // Initialize DiceRoller
-        const diceRoller = new DiceRoller(this.config, this.eventBus);
-        this.components.set('diceRoller', diceRoller);
+        const componentList = [
+            { name: 'DiceRoller', class: DiceRoller, deps: [this.config, this.eventBus] },
+            { name: 'CharacterSheet', class: CharacterSheet, deps: [this.config, this.dataManager] },
+            { name: 'CombatTracker', class: CombatTracker, deps: [this.config, this.dataManager, this.eventBus] },
+            { name: 'ScaleManager', class: ScaleManager, deps: [this.config, this.eventBus] },
+            { name: 'RulesReference', class: RulesReference, deps: [this.config, this.dataManager] },
+            { name: 'EncounterBuilder', class: EncounterBuilder, deps: [this.config, this.dataManager, this.eventBus] },
+            { name: 'ImportExport', class: ImportExport, deps: [this.config, this.dataManager, this.stateManager] },
+            { name: 'SessionTracker', class: SessionTracker, deps: [this.config, this.dataManager, this.stateManager] },
+            { name: 'CampaignNotes', class: CampaignNotes, deps: [this.config, this.dataManager, this.stateManager] },
+            { name: 'NPCManager', class: NPCManager, deps: [this.config, this.dataManager, this.stateManager] }
+        ];
+
+        for (const component of componentList) {
+            try {
+                console.log(`Initializing ${component.name}...`);
+                const instance = new component.class(...component.deps);
+                this.components.set(component.name.toLowerCase(), instance);
+            } catch (error) {
+                console.error(`Failed to initialize ${component.name}:`, error);
+                throw new Error(`Component initialization failed: ${component.name} - ${error.message}`);
+            }
+        }
         
-        // Initialize CharacterSheet
-        const characterSheet = new CharacterSheet(this.config, this.dataManager);
-        this.components.set('characterSheet', characterSheet);
-        
-        // Initialize CombatTracker
-        const combatTracker = new CombatTracker(this.config, this.dataManager, this.eventBus);
-        this.components.set('combatTracker', combatTracker);
-        
-        // Initialize ScaleManager
-        const scaleManager = new ScaleManager(this.config, this.eventBus);
-        this.components.set('scaleManager', scaleManager);
-        
-        // Initialize RulesReference
-        const rulesReference = new RulesReference(this.config, this.dataManager);
-        this.components.set('rulesReference', rulesReference);
-        
-        // Initialize EncounterBuilder
-        const encounterBuilder = new EncounterBuilder(this.config, this.dataManager, this.eventBus);
-        this.components.set('encounterBuilder', encounterBuilder);
-        
-        // Initialize ImportExport
-        const importExport = new ImportExport(this.config, this.dataManager, this.stateManager);
-        this.components.set('importExport', importExport);
-        
-        // Initialize SessionTracker
-        const sessionTracker = new SessionTracker(this.config, this.dataManager, this.stateManager);
-        this.components.set('sessionTracker', sessionTracker);
-        
-        // Initialize CampaignNotes
-        const campaignNotes = new CampaignNotes(this.config, this.dataManager, this.stateManager);
-        this.components.set('campaignNotes', campaignNotes);
-        
-        // Initialize NPCManager
-        const npcManager = new NPCManager(this.config, this.dataManager, this.stateManager);
-        this.components.set('npcManager', npcManager);
-        
-        // More components will be added as they're developed
-        console.log('Components initialized:', this.components.size);
+        console.log('All components initialized successfully:', this.components.size);
     }
     
     loadLayout() {

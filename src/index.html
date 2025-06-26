@@ -3,30 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cosmos Engine VTT - Virtual Tabletop for the Cosmos Engine RPG">
     <title>Cosmos Engine VTT</title>
-    
-    <!-- Development version - built assets will be injected by Vite -->
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <div id="app" class="app-container">
-        <!-- App shell for development -->
+    <div class="app-loading">
+        <div class="loading-spinner"></div>
+        <h2>Loading Cosmos Engine VTT...</h2>
+    </div>
+
+    <div id="app" class="app-container" style="display: none;">
         <header class="app-header">
             <h1>Cosmos Engine VTT</h1>
-            <nav class="app-nav" id="main-nav"></nav>
+            <nav id="main-nav" class="app-nav">
+                <!-- Navigation will be populated by router -->
+            </nav>
         </header>
         
-        <main class="app-main" id="main-content">
-            <!-- Components will be loaded here -->
+        <main id="main-content" class="app-main">
+            <!-- Content panels will be rendered here -->
         </main>
         
         <footer class="app-footer">
-            <p>&copy; 2025 Cosmos Engine. <a href="https://github.com/magicat777/CosmosEngineRPG" target="_blank">View Rules</a></p>
+            <p>Cosmos Engine RPG © 2025 | <a href="https://github.com/magicat777/cosmos-engine-vtt" target="_blank">GitHub</a></p>
         </footer>
     </div>
-    
-    <!-- Main app entry point -->
-    <script type="module" src="./app.js"></script>
+
+    <noscript>
+        <div class="noscript-warning">
+            <h2>JavaScript Required</h2>
+            <p>Cosmos Engine VTT requires JavaScript to be enabled in your browser.</p>
+        </div>
+    </noscript>
+
+    <script type="module">
+        // Show app after load and handle errors
+        window.addEventListener('load', () => {
+            document.querySelector('.app-loading').style.display = 'none';
+            document.getElementById('app').style.display = 'flex';
+        });
+        
+        // Global error handler
+        window.addEventListener('error', (e) => {
+            console.error('Application Error:', e.error);
+            document.querySelector('.app-loading h2').textContent = 'Failed to load application. Please refresh the page.';
+            document.querySelector('.loading-spinner').style.display = 'none';
+        });
+        
+        // Module error handler
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled Promise Rejection:', e.reason);
+            document.querySelector('.app-loading h2').textContent = 'Failed to initialize application. Please refresh the page.';
+            document.querySelector('.loading-spinner').style.display = 'none';
+        });
+    </script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
