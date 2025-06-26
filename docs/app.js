@@ -185,7 +185,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize character sheet in the panel
-        const characterSheet = this.components.get('characterSheet');
+        const characterSheet = this.components.get('charactersheet');
         const container = document.getElementById('character-sheet-component');
         if (characterSheet && container) {
             characterSheet.init(container);
@@ -203,7 +203,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize dice roller in the panel
-        const diceRoller = this.components.get('diceRoller');
+        const diceRoller = this.components.get('diceroller');
         const container = document.getElementById('dice-roller-component');
         if (diceRoller && container) {
             diceRoller.init(container);
@@ -221,7 +221,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize combat tracker in the panel
-        const combatTracker = this.components.get('combatTracker');
+        const combatTracker = this.components.get('combattracker');
         const container = document.getElementById('combat-tracker-component');
         if (combatTracker && container) {
             combatTracker.init(container);
@@ -239,7 +239,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize scale manager in the panel
-        const scaleManager = this.components.get('scaleManager');
+        const scaleManager = this.components.get('scalemanager');
         const container = document.getElementById('scale-manager-component');
         if (scaleManager && container) {
             scaleManager.init(container);
@@ -257,7 +257,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize rules reference in the panel
-        const rulesReference = this.components.get('rulesReference');
+        const rulesReference = this.components.get('rulesreference');
         const container = document.getElementById('rules-reference-component');
         if (rulesReference && container) {
             rulesReference.init(container);
@@ -275,7 +275,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize encounter builder in the panel
-        const encounterBuilder = this.components.get('encounterBuilder');
+        const encounterBuilder = this.components.get('encounterbuilder');
         const container = document.getElementById('encounter-builder-component');
         if (encounterBuilder && container) {
             encounterBuilder.init(container);
@@ -293,7 +293,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize session tracker in the panel
-        const sessionTracker = this.components.get('sessionTracker');
+        const sessionTracker = this.components.get('sessiontracker');
         const container = document.getElementById('session-tracker-component');
         if (sessionTracker && container) {
             sessionTracker.init(container);
@@ -311,7 +311,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize campaign notes in the panel
-        const campaignNotes = this.components.get('campaignNotes');
+        const campaignNotes = this.components.get('campaignnotes');
         const container = document.getElementById('campaign-notes-component');
         if (campaignNotes && container) {
             campaignNotes.init(container);
@@ -329,7 +329,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize NPC manager in the panel
-        const npcManager = this.components.get('npcManager');
+        const npcManager = this.components.get('npcmanager');
         const container = document.getElementById('npc-manager-component');
         if (npcManager && container) {
             npcManager.init(container);
@@ -347,7 +347,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize world builder in the panel
-        const worldBuilder = this.components.get('worldBuilder');
+        const worldBuilder = this.components.get('worldbuilder');
         const container = document.getElementById('world-builder-component');
         if (worldBuilder && container) {
             // Make worldBuilder globally accessible
@@ -367,7 +367,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize automation tools in the panel
-        const automationTools = this.components.get('automationTools');
+        const automationTools = this.components.get('automationtools');
         const container = document.getElementById('automation-tools-component');
         if (automationTools && container) {
             // Make automationTools globally accessible
@@ -387,7 +387,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize data sync in the panel
-        const dataSync = this.components.get('dataSync');
+        const dataSync = this.components.get('datasync');
         const container = document.getElementById('data-sync-component');
         if (dataSync && container) {
             container.appendChild(dataSync.render());
@@ -405,7 +405,7 @@ class CosmosEngineVTT {
         });
         
         // Initialize import/export manager in the panel
-        const importExport = this.components.get('importExport');
+        const importExport = this.components.get('importexport');
         const container = document.getElementById('import-export-component');
         if (importExport && container) {
             importExport.init(container);
