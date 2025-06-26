@@ -1,0 +1,190 @@
+/**
+ * Cosmos Engine VTT - Main Application Entry Point
+ * 
+ * This is the core application controller that initializes all components
+ * and manages the overall application state.
+ */
+
+import { Router } from './lib/router.js';
+import { Config } from './config.js';
+import { DataManager } from './components/DataManager.js';
+import { PanelSystem } from './components/PanelSystem.js';
+
+// Component imports will be added as they're developed
+// import { DiceRoller } from './components/DiceRoller.js';
+// import { CharacterSheet } from './components/CharacterSheet.js';
+// import { CombatTracker } from './components/CombatTracker.js';
+// import { RulesReference } from './components/RulesReference.js';
+
+class CosmosEngineVTT {
+    constructor() {
+        this.config = new Config();
+        this.router = new Router();
+        this.dataManager = new DataManager(this.config);
+        this.panels = new PanelSystem();
+        this.components = new Map();
+        
+        this.init();
+    }
+    
+    async init() {
+        console.log('Initializing Cosmos Engine VTT...');
+        
+        try {
+            // Initialize data manager
+            await this.dataManager.init();
+            
+            // Set up routing
+            this.setupRoutes();
+            
+            // Initialize panel system
+            this.panels.init(document.getElementById('main-content'));
+            
+            // Load saved layout or default
+            this.loadLayout();
+            
+            // Initialize components
+            await this.initializeComponents();
+            
+            // Start router
+            this.router.start();
+            
+            console.log('Cosmos Engine VTT initialized successfully');
+        } catch (error) {
+            console.error('Failed to initialize VTT:', error);
+            this.showError('Failed to initialize application. Please refresh the page.');
+        }
+    }
+    
+    setupRoutes() {
+        // Define application routes
+        this.router.addRoute('/', () => this.showDashboard());
+        this.router.addRoute('/character', () => this.showCharacterSheet());
+        this.router.addRoute('/dice', () => this.showDiceRoller());
+        this.router.addRoute('/combat', () => this.showCombatTracker());
+        this.router.addRoute('/rules', () => this.showRulesReference());
+        this.router.addRoute('/settings', () => this.showSettings());
+    }
+    
+    async initializeComponents() {
+        // Components will be initialized as they're developed
+        console.log('Components initialization placeholder');
+        
+        // Example pattern:
+        // const diceRoller = new DiceRoller(this.dataManager);
+        // await diceRoller.init();
+        // this.components.set('diceRoller', diceRoller);
+    }
+    
+    loadLayout() {
+        const savedLayout = localStorage.getItem('cosmos-vtt-layout');
+        if (savedLayout) {
+            try {
+                const layout = JSON.parse(savedLayout);
+                this.panels.loadLayout(layout);
+            } catch (e) {
+                console.error('Failed to load saved layout:', e);
+                this.panels.loadDefaultLayout();
+            }
+        } else {
+            this.panels.loadDefaultLayout();
+        }
+    }
+    
+    // Route handlers
+    showDashboard() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'welcome',
+            title: 'Welcome to Cosmos Engine VTT',
+            content: `
+                <div class="dashboard">
+                    <h2>Quick Start</h2>
+                    <p>Select a tool from the navigation menu to begin.</p>
+                    <ul>
+                        <li><a href="#/dice">Dice Roller</a> - Roll 2d10 with modifiers</li>
+                        <li><a href="#/character">Character Sheet</a> - Manage your character</li>
+                        <li><a href="#/combat">Combat Tracker</a> - Track initiative and damage</li>
+                        <li><a href="#/rules">Rules Reference</a> - Quick rule lookups</li>
+                    </ul>
+                </div>
+            `
+        });
+    }
+    
+    showCharacterSheet() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'character-sheet',
+            title: 'Character Sheet',
+            content: '<p>Character sheet component coming soon...</p>'
+        });
+    }
+    
+    showDiceRoller() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'dice-roller',
+            title: 'Dice Roller',
+            content: '<p>Dice roller component coming soon...</p>'
+        });
+    }
+    
+    showCombatTracker() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'combat-tracker',
+            title: 'Combat Tracker',
+            content: '<p>Combat tracker component coming soon...</p>'
+        });
+    }
+    
+    showRulesReference() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'rules-reference',
+            title: 'Rules Reference',
+            content: '<p>Rules reference component coming soon...</p>'
+        });
+    }
+    
+    showSettings() {
+        this.panels.clear();
+        this.panels.addPanel({
+            id: 'settings',
+            title: 'Settings',
+            content: `
+                <div class="settings">
+                    <h3>Application Settings</h3>
+                    <label>
+                        <input type="checkbox" id="offline-mode"> 
+                        Enable Offline Mode
+                    </label>
+                    <label>
+                        <input type="checkbox" id="dark-mode" checked> 
+                        Dark Mode
+                    </label>
+                    <button onclick="localStorage.clear(); location.reload();">
+                        Clear Local Data
+                    </button>
+                </div>
+            `
+        });
+    }
+    
+    showError(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        document.body.appendChild(errorDiv);
+        
+        setTimeout(() => errorDiv.remove(), 5000);
+    }
+}
+
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new CosmosEngineVTT());
+} else {
+    new CosmosEngineVTT();
+}

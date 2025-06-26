@@ -1,0 +1,42 @@
+{
+  "name": "cosmos-engine-vtt",
+  "version": "0.1.0",
+  "description": "Virtual Tabletop for the Cosmos Engine RPG",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write src/**/*.{js,css,html}"
+  },
+  "keywords": [
+    "vtt",
+    "virtual-tabletop",
+    "rpg",
+    "cosmos-engine",
+    "tabletop",
+    "gaming"
+  ],
+  "author": "Cosmos Engine Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0",
+    "gh-pages": "^6.0.0",
+    "@vitest/ui": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magicat777/cosmos-engine-vtt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/magicat777/cosmos-engine-vtt/issues"
+  },
+  "homepage": "https://magicat777.github.io/cosmos-engine-vtt"
+}
