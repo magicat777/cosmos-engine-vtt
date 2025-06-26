@@ -6,6 +6,7 @@
 /* Component imports */
 @import './dice-roller.css';
 @import './character-sheet.css';
+@import './rules-reference.css';
 
 /* CSS Custom Properties for theming */
 :root {

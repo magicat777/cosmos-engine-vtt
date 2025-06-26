@@ -4,12 +4,15 @@
  * Provides offline-first capability
  */
 
+import { DataFetcher } from '../utils/dataFetcher.js';
+
 export class DataManager {
     constructor(config) {
         this.config = config;
         this.cache = new Map();
         this.db = null;
         this.isInitialized = false;
+        this.dataFetcher = new DataFetcher(config);
     }
     
     async init() {

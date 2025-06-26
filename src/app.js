@@ -14,7 +14,7 @@ import { PanelSystem } from './components/PanelSystem.js';
 import { DiceRoller } from './components/DiceRoller.js';
 import { CharacterSheet } from './components/CharacterSheet.js';
 // import { CombatTracker } from './components/CombatTracker.js';
-// import { RulesReference } from './components/RulesReference.js';
+import { RulesReference } from './components/RulesReference.js';
 
 class CosmosEngineVTT {
     constructor() {
@@ -74,6 +74,10 @@ class CosmosEngineVTT {
         // Initialize CharacterSheet
         const characterSheet = new CharacterSheet(this.config, this.dataManager);
         this.components.set('characterSheet', characterSheet);
+        
+        // Initialize RulesReference
+        const rulesReference = new RulesReference(this.config, this.dataManager);
+        this.components.set('rulesReference', rulesReference);
         
         // More components will be added as they're developed
         console.log('Components initialized:', this.components.size);
@@ -162,11 +166,20 @@ class CosmosEngineVTT {
     
     showRulesReference() {
         this.panels.clear();
-        this.panels.addPanel({
+        const panelId = this.panels.addPanel({
             id: 'rules-reference',
-            title: 'Rules Reference',
-            content: '<p>Rules reference component coming soon...</p>'
+            title: 'Rules Reference - Quick Lookup',
+            content: '<div id="rules-reference-component"></div>',
+            width: 800,
+            height: 600
         });
+        
+        // Initialize rules reference in the panel
+        const rulesReference = this.components.get('rulesReference');
+        const container = document.getElementById('rules-reference-component');
+        if (rulesReference && container) {
+            rulesReference.init(container);
+        }
     }
     
     showSettings() {
