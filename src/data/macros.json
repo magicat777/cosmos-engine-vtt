@@ -1,0 +1,84 @@
+{
+  "macros": [
+    {
+      "id": "basic-attack",
+      "name": "Basic Attack",
+      "category": "combat",
+      "description": "Standard attack roll with weapon",
+      "script": "const roll = dice.roll('2d10');\nconst attribute = character.attributes?.coordination || 0;\nconst skill = Math.floor((character.skills?.combat || 0) / 2);\nconst weapon = character.equipment?.weapon?.bonus || 0;\nconst total = roll.total + attribute + skill + weapon;\nreturn {\n    result: total,\n    breakdown: `${roll.result} + ${attribute} (Coord) + ${skill} (Combat/2) + ${weapon} (Weapon) = ${total}`,\n    success: total >= (target?.defense || 10)\n};",
+      "hotkey": "Ctrl+1",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "skill-check",
+      "name": "Generic Skill Check", 
+      "category": "skill",
+      "description": "Roll for any skill check",
+      "script": "const roll = dice.roll('2d10');\nconst attribute = prompt('Attribute value:') || 0;\nconst skill = prompt('Skill value:') || 0;\nconst modifier = prompt('Additional modifier:') || 0;\nconst total = roll.total + parseInt(attribute) + Math.floor(parseInt(skill) / 2) + parseInt(modifier);\nconst difficulty = prompt('Difficulty (8=Easy, 11=Moderate, 14=Hard, 17=Extreme, 20=Legendary):') || 11;\nreturn {\n    result: total,\n    breakdown: `${roll.result} + ${attribute} (Attr) + ${Math.floor(parseInt(skill) / 2)} (Skill/2) + ${modifier} (Mod) = ${total}`,\n    success: total >= parseInt(difficulty),\n    difficulty: difficulty\n};",
+      "hotkey": "Ctrl+2",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "damage-roll",
+      "name": "Damage Roll",
+      "category": "damage", 
+      "description": "Roll weapon damage with margin",
+      "script": "const weaponDamage = prompt('Weapon damage (e.g., 1d6+2):') || '1d6';\nconst roll = dice.roll(weaponDamage);\nconst margin = prompt('Attack margin of success (0 if hit exactly):') || 0;\nconst total = roll.total + Math.floor(parseInt(margin) / 2);\nreturn {\n    result: total,\n    breakdown: `${roll.result} + ${Math.floor(parseInt(margin) / 2)} (Margin/2) = ${total}`,\n    damage: total\n};",
+      "hotkey": "Ctrl+3",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "initiative-roll",
+      "name": "Initiative Roll",
+      "category": "combat",
+      "description": "Roll initiative for combat",
+      "script": "const roll = dice.roll('1d10');\nconst awareness = character.attributes?.awareness || 0;\nconst total = roll.total + awareness;\nreturn {\n    result: total,\n    breakdown: `${roll.result} + ${awareness} (Awareness) = ${total}`,\n    initiative: total\n};",
+      "hotkey": "Ctrl+I",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "apply-stunned",
+      "name": "Apply Stunned", 
+      "category": "condition",
+      "description": "Apply stunned condition (-2 to all actions)",
+      "script": "if (!target) {\n    return { error: 'No target selected' };\n}\nautomation.applyCondition({\n    targetId: target.id,\n    targetName: target.name,\n    type: 'stunned',\n    duration: 3,\n    notes: 'Applied via macro'\n});\nreturn {\n    result: `Applied Stunned condition to ${target.name} for 3 rounds`,\n    condition: 'stunned'\n};",
+      "hotkey": "Ctrl+S",
+      "gmOnly": true,
+      "created": 1640995200000
+    },
+    {
+      "id": "scale-damage",
+      "name": "Scale Damage",
+      "category": "utility",
+      "description": "Convert damage between combat scales",
+      "script": "const damage = prompt('Damage amount:') || 0;\nconst fromScale = prompt('From scale (Personal/Vehicle/Starship/Capital):') || 'Personal';\nconst toScale = prompt('To scale (Personal/Vehicle/Starship/Capital):') || 'Personal';\n\nconst multipliers = {\n    'Personal': 1,\n    'Vehicle': 10, \n    'Starship': 100,\n    'Capital': 1000\n};\n\nconst fromMult = multipliers[fromScale] || 1;\nconst toMult = multipliers[toScale] || 1;\nconst scaledDamage = Math.round((parseInt(damage) * fromMult) / toMult);\n\nreturn {\n    result: scaledDamage,\n    breakdown: `${damage} ${fromScale} damage = ${scaledDamage} ${toScale} damage`,\n    scaledDamage: scaledDamage\n};",
+      "hotkey": "Ctrl+D",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "quick-heal",
+      "name": "Quick Healing",
+      "category": "utility",
+      "description": "Apply healing to target",
+      "script": "const healing = prompt('Healing amount:') || 0;\nconst healType = prompt('Healing type (Medical/Natural/Tech):') || 'Medical';\n\nif (!target) {\n    return { error: 'No target selected' };\n}\n\nreturn {\n    result: parseInt(healing),\n    breakdown: `${healing} ${healType} healing applied to ${target.name}`,\n    healing: parseInt(healing),\n    type: healType\n};",
+      "hotkey": "Ctrl+H",
+      "gmOnly": false,
+      "created": 1640995200000
+    },
+    {
+      "id": "advantage-roll",
+      "name": "Advantage Roll",
+      "category": "skill",
+      "description": "Roll with advantage (3d10, keep highest 2)",
+      "script": "const roll = dice.roll('3d10');\nconst sorted = roll.rolls.sort((a, b) => b - a);\nconst kept = sorted.slice(0, 2);\nconst total = kept.reduce((sum, die) => sum + die, 0);\n\nconst attribute = prompt('Attribute value:') || 0;\nconst skill = prompt('Skill value:') || 0;\nconst modifier = prompt('Additional modifier:') || 0;\nconst finalTotal = total + parseInt(attribute) + Math.floor(parseInt(skill) / 2) + parseInt(modifier);\n\nreturn {\n    result: finalTotal,\n    breakdown: `[${sorted.join(', ')}] kept [${kept.join(', ')}] = ${total} + ${attribute} (Attr) + ${Math.floor(parseInt(skill) / 2)} (Skill/2) + ${modifier} (Mod) = ${finalTotal}`,\n    advantage: true\n};",
+      "hotkey": "Ctrl+A",
+      "gmOnly": false,
+      "created": 1640995200000
+    }
+  ]
+}

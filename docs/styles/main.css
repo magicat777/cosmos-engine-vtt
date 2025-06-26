@@ -15,6 +15,7 @@
 @import './campaign-notes.css';
 @import './npc-manager.css';
 @import './worldbuilder.css';
+@import './automation-tools.css';
 
 /* CSS Custom Properties for theming */
 :root {
