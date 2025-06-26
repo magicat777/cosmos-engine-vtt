@@ -1,0 +1,112 @@
+{
+  "worlds": [
+    {
+      "id": "frontier-sector",
+      "name": "Frontier Sector",
+      "type": "sector",
+      "description": "A remote galactic sector on the edge of known space, filled with unexplored systems and ancient mysteries.",
+      "techLevel": "9",
+      "created": 1640995200000,
+      "locations": [
+        {
+          "id": "kepler-system",
+          "name": "Kepler System",
+          "type": "system",
+          "parentId": null,
+          "description": "A binary star system with three habitable worlds and rich asteroid fields.",
+          "population": "12 million",
+          "government": "Colonial Federation",
+          "notes": "Key trade hub for the sector",
+          "created": 1640995200000
+        },
+        {
+          "id": "kepler-prime",
+          "name": "Kepler Prime",
+          "type": "planet",
+          "parentId": "kepler-system",
+          "description": "The primary world of the Kepler System, featuring sprawling cities and advanced infrastructure.",
+          "population": "8 million",
+          "government": "Federal Democracy",
+          "notes": "Sector capital and administrative center",
+          "created": 1640995200000
+        },
+        {
+          "id": "new-manhattan",
+          "name": "New Manhattan",
+          "type": "city",
+          "parentId": "kepler-prime",
+          "description": "The gleaming capital city of Kepler Prime, home to the Sector Council.",
+          "population": "2.5 million",
+          "government": "Municipal Council",
+          "notes": "Major spaceport and diplomatic center",
+          "created": 1640995200000
+        },
+        {
+          "id": "asteroid-belt-alpha",
+          "name": "Asteroid Belt Alpha",
+          "type": "region",
+          "parentId": "kepler-system",
+          "description": "A dense asteroid field rich in rare metals and crystals.",
+          "population": "50,000 miners",
+          "government": "Mining Consortium",
+          "notes": "Dangerous but profitable mining operations",
+          "created": 1640995200000
+        }
+      ],
+      "factions": [
+        {
+          "id": "colonial-federation",
+          "name": "Colonial Federation",
+          "type": "government",
+          "scope": "sector",
+          "power": "5",
+          "goals": "Maintain order and expand human presence in the frontier",
+          "resources": "Military fleet, administrative infrastructure, taxation authority",
+          "allies": "Stellar Trade Consortium",
+          "enemies": "Red Nebula Pirates",
+          "notes": "The primary governing body of the sector",
+          "created": 1640995200000
+        },
+        {
+          "id": "stellar-trade-consortium",
+          "name": "Stellar Trade Consortium",
+          "type": "corporation",
+          "scope": "galactic",
+          "power": "4",
+          "goals": "Control interstellar trade routes and maximize profits",
+          "resources": "Merchant fleet, banking networks, trade stations",
+          "allies": "Colonial Federation",
+          "enemies": "Independent Miners Guild",
+          "notes": "Powerful corporate entity with significant political influence",
+          "created": 1640995200000
+        },
+        {
+          "id": "red-nebula-pirates",
+          "name": "Red Nebula Pirates",
+          "type": "criminal",
+          "scope": "sector",
+          "power": "3",
+          "goals": "Raid shipping lanes and avoid Federation patrols",
+          "resources": "Fast attack ships, hidden bases, black market contacts",
+          "allies": "Scavenger Clans",
+          "enemies": "Colonial Federation, Stellar Trade Consortium",
+          "notes": "Notorious pirate confederation operating from nebula hideouts",
+          "created": 1640995200000
+        },
+        {
+          "id": "kepler-scientists",
+          "name": "Kepler Scientific Institute",
+          "type": "academic",
+          "scope": "system",
+          "power": "2",
+          "goals": "Study alien artifacts and advance human knowledge",
+          "resources": "Research facilities, archaeological teams, advanced sensors",
+          "allies": "Colonial Federation",
+          "enemies": "None",
+          "notes": "Leading research institution investigating pre-human civilizations",
+          "created": 1640995200000
+        }
+      ]
+    }
+  ]
+}

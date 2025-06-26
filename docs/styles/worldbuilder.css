@@ -1,0 +1,509 @@
+/* WorldBuilder Component Styles */
+
+.worldbuilder-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.worldbuilder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--color-bg-tertiary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.worldbuilder-header h2 {
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.worldbuilder-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.world-selector {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-width: 200px;
+}
+
+.worldbuilder-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 1rem;
+    padding: 1rem;
+    height: calc(100% - 80px);
+    overflow: hidden;
+}
+
+/* Panel Styles */
+.location-panel,
+.faction-panel,
+.details-panel {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--color-bg-tertiary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-primary);
+}
+
+.location-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.scale-selector {
+    padding: 0.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+}
+
+/* Location Tree Styles */
+.location-tree {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.location-node {
+    margin-bottom: 0.25rem;
+}
+
+.location-node.depth-0 {
+    margin-left: 0;
+}
+
+.location-node.depth-1 {
+    margin-left: 1rem;
+}
+
+.location-node.depth-2 {
+    margin-left: 2rem;
+}
+
+.location-node.depth-3 {
+    margin-left: 3rem;
+}
+
+.location-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.location-item:hover {
+    background: var(--color-bg-tertiary);
+}
+
+.location-item.selected {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}
+
+.location-icon {
+    font-size: 1.2rem;
+}
+
+.location-name {
+    font-weight: 500;
+    flex: 1;
+}
+
+.location-type {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.location-actions {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.location-item:hover .location-actions {
+    opacity: 1;
+}
+
+.location-children {
+    border-left: 1px solid var(--color-border);
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* Faction List Styles */
+.faction-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.faction-item {
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.faction-item:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-accent-primary);
+}
+
+.faction-item.selected {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+    border-color: var(--color-accent-primary);
+}
+
+.faction-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.faction-icon {
+    font-size: 1.2rem;
+}
+
+.faction-name {
+    font-weight: 500;
+    flex: 1;
+}
+
+.faction-power {
+    font-size: 0.875rem;
+    background: var(--color-bg-tertiary);
+    padding: 0.125rem 0.5rem;
+    border-radius: 12px;
+}
+
+.faction-type {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.faction-actions {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.faction-item:hover .faction-actions {
+    opacity: 1;
+}
+
+/* Details Panel Styles */
+.detail-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 2rem;
+}
+
+.welcome-message h3 {
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+.welcome-message p {
+    margin-bottom: 2rem;
+    color: var(--color-text-secondary);
+}
+
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.world-details,
+.location-details,
+.faction-details {
+    max-width: 100%;
+}
+
+.world-details h3,
+.location-details h3,
+.faction-details h3 {
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+    border-bottom: 2px solid var(--color-accent-primary);
+    padding-bottom: 0.5rem;
+}
+
+.world-info,
+.location-info,
+.faction-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-bg-tertiary);
+    border-radius: 6px;
+}
+
+.world-description,
+.location-description,
+.faction-goals,
+.faction-resources,
+.faction-relations,
+.location-notes,
+.faction-notes {
+    margin-bottom: 1.5rem;
+}
+
+.world-description h4,
+.location-description h4,
+.faction-goals h4,
+.faction-resources h4,
+.faction-relations h4,
+.location-notes h4,
+.faction-notes h4 {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--color-text-primary);
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 3rem;
+}
+
+/* Button Styles */
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-small:hover {
+    opacity: 0.8;
+}
+
+.btn-tiny {
+    padding: 0.125rem 0.25rem;
+    font-size: 0.75rem;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-tiny:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.btn-outline {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    color: var(--color-accent-primary);
+    border: 1px solid var(--color-accent-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: var(--color-text-secondary);
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .worldbuilder-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr;
+    }
+    
+    .location-panel,
+    .faction-panel {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .worldbuilder-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .worldbuilder-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .world-info,
+    .location-info,
+    .faction-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}

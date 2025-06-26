@@ -14,6 +14,7 @@
 @import './session-tracker.css';
 @import './campaign-notes.css';
 @import './npc-manager.css';
+@import './worldbuilder.css';
 
 /* CSS Custom Properties for theming */
 :root {

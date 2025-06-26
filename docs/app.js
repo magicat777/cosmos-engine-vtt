@@ -23,6 +23,7 @@ import { ImportExport } from './components/ImportExport.js';
 import { SessionTracker } from './components/SessionTracker.js';
 import { CampaignNotes } from './components/CampaignNotes.js';
 import { NPCManager } from './components/NPCManager.js';
+import { WorldBuilder } from './components/WorldBuilder.js';
 
 class CosmosEngineVTT {
     constructor() {
@@ -88,6 +89,7 @@ class CosmosEngineVTT {
         this.router.addRoute('/session', () => this.showSessionTracker());
         this.router.addRoute('/notes', () => this.showCampaignNotes());
         this.router.addRoute('/npcs', () => this.showNPCManager());
+        this.router.addRoute('/world', () => this.showWorldBuilder());
         this.router.addRoute('/import-export', () => this.showImportExport());
         this.router.addRoute('/settings', () => this.showSettings());
     }
@@ -103,7 +105,8 @@ class CosmosEngineVTT {
             { name: 'ImportExport', class: ImportExport, deps: [this.config, this.dataManager, this.stateManager] },
             { name: 'SessionTracker', class: SessionTracker, deps: [this.config, this.dataManager, this.stateManager] },
             { name: 'CampaignNotes', class: CampaignNotes, deps: [this.config, this.dataManager, this.stateManager] },
-            { name: 'NPCManager', class: NPCManager, deps: [this.config, this.dataManager, this.stateManager] }
+            { name: 'NPCManager', class: NPCManager, deps: [this.config, this.dataManager, this.stateManager] },
+            { name: 'WorldBuilder', class: WorldBuilder, deps: [this.eventBus, this.dataManager] }
         ];
 
         for (const component of componentList) {
@@ -155,6 +158,7 @@ class CosmosEngineVTT {
                         <li><a href="#/session">Session Tracker</a> - Track campaign sessions</li>
                         <li><a href="#/notes">Campaign Notes</a> - Organize GM notes</li>
                         <li><a href="#/npcs">NPC Manager</a> - Manage characters and NPCs</li>
+                        <li><a href="#/world">World Builder</a> - Create locations and factions</li>
                         <li><a href="#/import-export">Import/Export</a> - Backup and share data</li>
                     </ul>
                 </div>
@@ -321,6 +325,26 @@ class CosmosEngineVTT {
         const container = document.getElementById('npc-manager-component');
         if (npcManager && container) {
             npcManager.init(container);
+        }
+    }
+    
+    showWorldBuilder() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'world-builder',
+            title: 'World Builder - Locations & Factions',
+            content: '<div id="world-builder-component"></div>',
+            width: 1400,
+            height: 900
+        });
+        
+        // Initialize world builder in the panel
+        const worldBuilder = this.components.get('worldBuilder');
+        const container = document.getElementById('world-builder-component');
+        if (worldBuilder && container) {
+            // Make worldBuilder globally accessible
+            window.worldBuilder = worldBuilder;
+            container.appendChild(worldBuilder.render());
         }
     }
     
