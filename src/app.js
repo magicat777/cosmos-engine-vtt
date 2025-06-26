@@ -25,6 +25,7 @@ import { CampaignNotes } from './components/CampaignNotes.js';
 import { NPCManager } from './components/NPCManager.js';
 import { WorldBuilder } from './components/WorldBuilder.js';
 import { AutomationTools } from './components/AutomationTools.js';
+import { DataSync } from './components/DataSync.js';
 
 class CosmosEngineVTT {
     constructor() {
@@ -92,6 +93,7 @@ class CosmosEngineVTT {
         this.router.addRoute('/npcs', () => this.showNPCManager());
         this.router.addRoute('/world', () => this.showWorldBuilder());
         this.router.addRoute('/automation', () => this.showAutomationTools());
+        this.router.addRoute('/sync', () => this.showDataSync());
         this.router.addRoute('/import-export', () => this.showImportExport());
         this.router.addRoute('/settings', () => this.showSettings());
     }
@@ -109,7 +111,8 @@ class CosmosEngineVTT {
             { name: 'CampaignNotes', class: CampaignNotes, deps: [this.config, this.dataManager, this.stateManager] },
             { name: 'NPCManager', class: NPCManager, deps: [this.config, this.dataManager, this.stateManager] },
             { name: 'WorldBuilder', class: WorldBuilder, deps: [this.eventBus, this.dataManager] },
-            { name: 'AutomationTools', class: AutomationTools, deps: [this.config, this.dataManager, this.eventBus] }
+            { name: 'AutomationTools', class: AutomationTools, deps: [this.config, this.dataManager, this.eventBus] },
+            { name: 'DataSync', class: DataSync, deps: [this.config, this.dataManager, this.eventBus] }
         ];
 
         for (const component of componentList) {
@@ -163,6 +166,7 @@ class CosmosEngineVTT {
                         <li><a href="#/npcs">NPC Manager</a> - Manage characters and NPCs</li>
                         <li><a href="#/world">World Builder</a> - Create locations and factions</li>
                         <li><a href="#/automation">Automation Tools</a> - Macros and conditions</li>
+                        <li><a href="#/sync">Data Sync</a> - Cloud saves and collaboration</li>
                         <li><a href="#/import-export">Import/Export</a> - Backup and share data</li>
                     </ul>
                 </div>
@@ -369,6 +373,24 @@ class CosmosEngineVTT {
             // Make automationTools globally accessible
             window.automationTools = automationTools;
             container.appendChild(automationTools.render());
+        }
+    }
+    
+    showDataSync() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'data-sync',
+            title: 'Data Sync - Cloud Storage & Collaboration',
+            content: '<div id="data-sync-component"></div>',
+            width: 1400,
+            height: 900
+        });
+        
+        // Initialize data sync in the panel
+        const dataSync = this.components.get('dataSync');
+        const container = document.getElementById('data-sync-component');
+        if (dataSync && container) {
+            container.appendChild(dataSync.render());
         }
     }
     
