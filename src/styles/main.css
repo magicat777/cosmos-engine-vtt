@@ -7,6 +7,8 @@
 @import './dice-roller.css';
 @import './character-sheet.css';
 @import './rules-reference.css';
+@import './combat-tracker.css';
+@import './scale-manager.css';
 
 /* CSS Custom Properties for theming */
 :root {

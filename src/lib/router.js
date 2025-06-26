@@ -81,6 +81,7 @@ export class Router {
             <a href="#/dice" class="nav-link" data-route="/dice">Dice</a>
             <a href="#/character" class="nav-link" data-route="/character">Character</a>
             <a href="#/combat" class="nav-link" data-route="/combat">Combat</a>
+            <a href="#/scales" class="nav-link" data-route="/scales">Scales</a>
             <a href="#/rules" class="nav-link" data-route="/rules">Rules</a>
             <a href="#/settings" class="nav-link" data-route="/settings">Settings</a>
         `;

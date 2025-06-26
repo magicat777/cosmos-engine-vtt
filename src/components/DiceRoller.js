@@ -11,8 +11,9 @@
  */
 
 export class DiceRoller {
-    constructor(config) {
+    constructor(config, eventBus) {
         this.config = config;
+        this.eventBus = eventBus;
         this.history = [];
         this.maxHistory = config.performance.maxHistoryItems || 100;
         this.element = null;
@@ -177,7 +178,7 @@ export class DiceRoller {
             else degree = 'marginal-failure';
         }
         
-        return {
+        const result = {
             dice,
             keptDice,
             naturalTotal,
@@ -192,6 +193,20 @@ export class DiceRoller {
             mode,
             timestamp: Date.now()
         };
+        
+        // Emit events if eventBus is available
+        if (this.eventBus) {
+            this.eventBus.emit('dice-rolled', result);
+            
+            if (isCritical) {
+                this.eventBus.emit('critical-success', result);
+            }
+            if (isFumble) {
+                this.eventBus.emit('critical-failure', result);
+            }
+        }
+        
+        return result;
     }
     
     rollDie() {

@@ -6,6 +6,7 @@
  */
 
 import { Router } from './lib/router.js';
+import { EventBus } from './lib/eventBus.js';
 import { Config } from './config.js';
 import { DataManager } from './components/DataManager.js';
 import { PanelSystem } from './components/PanelSystem.js';
@@ -13,12 +14,14 @@ import { PanelSystem } from './components/PanelSystem.js';
 // Component imports
 import { DiceRoller } from './components/DiceRoller.js';
 import { CharacterSheet } from './components/CharacterSheet.js';
-// import { CombatTracker } from './components/CombatTracker.js';
+import { CombatTracker } from './components/CombatTracker.js';
+import { ScaleManager } from './components/ScaleManager.js';
 import { RulesReference } from './components/RulesReference.js';
 
 class CosmosEngineVTT {
     constructor() {
         this.config = new Config();
+        this.eventBus = new EventBus();
         this.router = new Router();
         this.dataManager = new DataManager(this.config);
         this.panels = new PanelSystem();
@@ -62,18 +65,27 @@ class CosmosEngineVTT {
         this.router.addRoute('/character', () => this.showCharacterSheet());
         this.router.addRoute('/dice', () => this.showDiceRoller());
         this.router.addRoute('/combat', () => this.showCombatTracker());
+        this.router.addRoute('/scales', () => this.showScaleManager());
         this.router.addRoute('/rules', () => this.showRulesReference());
         this.router.addRoute('/settings', () => this.showSettings());
     }
     
     async initializeComponents() {
         // Initialize DiceRoller
-        const diceRoller = new DiceRoller(this.config);
+        const diceRoller = new DiceRoller(this.config, this.eventBus);
         this.components.set('diceRoller', diceRoller);
         
         // Initialize CharacterSheet
         const characterSheet = new CharacterSheet(this.config, this.dataManager);
         this.components.set('characterSheet', characterSheet);
+        
+        // Initialize CombatTracker
+        const combatTracker = new CombatTracker(this.config, this.dataManager, this.eventBus);
+        this.components.set('combatTracker', combatTracker);
+        
+        // Initialize ScaleManager
+        const scaleManager = new ScaleManager(this.config, this.eventBus);
+        this.components.set('scaleManager', scaleManager);
         
         // Initialize RulesReference
         const rulesReference = new RulesReference(this.config, this.dataManager);
@@ -112,6 +124,7 @@ class CosmosEngineVTT {
                         <li><a href="#/dice">Dice Roller</a> - Roll 2d10 with modifiers</li>
                         <li><a href="#/character">Character Sheet</a> - Manage your character</li>
                         <li><a href="#/combat">Combat Tracker</a> - Track initiative and damage</li>
+                        <li><a href="#/scales">Scale Manager</a> - Convert damage between scales</li>
                         <li><a href="#/rules">Rules Reference</a> - Quick rule lookups</li>
                     </ul>
                 </div>
@@ -157,11 +170,38 @@ class CosmosEngineVTT {
     
     showCombatTracker() {
         this.panels.clear();
-        this.panels.addPanel({
+        const panelId = this.panels.addPanel({
             id: 'combat-tracker',
-            title: 'Combat Tracker',
-            content: '<p>Combat tracker component coming soon...</p>'
+            title: 'Combat Tracker - Initiative & HP',
+            content: '<div id="combat-tracker-component"></div>',
+            width: 900,
+            height: 700
         });
+        
+        // Initialize combat tracker in the panel
+        const combatTracker = this.components.get('combatTracker');
+        const container = document.getElementById('combat-tracker-component');
+        if (combatTracker && container) {
+            combatTracker.init(container);
+        }
+    }
+    
+    showScaleManager() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'scale-manager',
+            title: 'Scale Manager - Combat Scaling',
+            content: '<div id="scale-manager-component"></div>',
+            width: 600,
+            height: 700
+        });
+        
+        // Initialize scale manager in the panel
+        const scaleManager = this.components.get('scaleManager');
+        const container = document.getElementById('scale-manager-component');
+        if (scaleManager && container) {
+            scaleManager.init(container);
+        }
     }
     
     showRulesReference() {
