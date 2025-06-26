@@ -17,6 +17,7 @@
 @import './worldbuilder.css';
 @import './automation-tools.css';
 @import './datasync.css';
+@import './skilltrees.css';
 
 /* CSS Custom Properties for theming */
 :root {

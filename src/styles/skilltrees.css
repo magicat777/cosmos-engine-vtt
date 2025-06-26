@@ -1,0 +1,471 @@
+/* SkillTrees Component Styles */
+
+.skill-trees-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.skill-trees-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-tertiary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.skill-trees-header h2 {
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.skill-selector {
+    flex: 1;
+}
+
+.skill-selector select {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    min-width: 200px;
+}
+
+.tree-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 1.2rem;
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+}
+
+.btn-icon:hover {
+    opacity: 0.8;
+}
+
+/* Main Content Layout */
+.skill-tree-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.tree-sidebar {
+    width: 300px;
+    background: var(--color-bg-primary);
+    border-right: 1px solid var(--color-border);
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.tree-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    background-image: 
+        radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%),
+        linear-gradient(0deg, rgba(255,255,255,0.01) 50%, transparent 50%);
+}
+
+#skill-tree-canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+#skill-tree-canvas:active {
+    cursor: grabbing;
+}
+
+/* Sidebar Sections */
+.character-info,
+.path-info,
+.node-details,
+.synergy-info {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.character-info h3,
+.path-info h3,
+.node-details h3,
+.synergy-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+}
+
+#character-name {
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    margin-bottom: 1rem;
+}
+
+.skill-progress {
+    margin-top: 0.5rem;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+    transition: width 0.3s ease;
+}
+
+.xp-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.xp-info span {
+    display: block;
+}
+
+/* Path Info */
+.path-name {
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.path-description {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+}
+
+.specializations-list {
+    font-size: 0.875rem;
+}
+
+.specialization-item {
+    padding: 0.5rem;
+    margin-bottom: 0.25rem;
+    background: var(--color-bg-secondary);
+    border-radius: 4px;
+    border-left: 3px solid var(--color-accent-primary);
+}
+
+/* Node Details */
+.node-info h4 {
+    color: var(--color-accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.node-tier {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.node-description {
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.node-effect {
+    font-size: 0.875rem;
+    color: var(--color-accent-success);
+    margin-bottom: 0.5rem;
+}
+
+.node-cost {
+    font-size: 0.875rem;
+    color: var(--color-accent-warning);
+    margin-bottom: 0.5rem;
+}
+
+.node-requires {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+/* Synergies */
+.synergies-list {
+    font-size: 0.875rem;
+}
+
+.synergy-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--color-bg-secondary);
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.synergy-name {
+    font-weight: 600;
+    color: var(--color-accent-primary);
+    margin-bottom: 0.25rem;
+}
+
+.synergy-requirements {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+/* Tree Legend */
+.tree-legend {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.75rem;
+    min-width: 150px;
+}
+
+.tree-legend h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.node-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.node-icon.available {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-accent-primary);
+}
+
+.node-icon.unlocked {
+    background: var(--color-accent-primary);
+    border-color: #fff;
+}
+
+.node-icon.locked {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.node-icon.specialization {
+    position: relative;
+    background: var(--color-accent-secondary);
+    border-color: #fff;
+}
+
+.node-icon.specialization::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+}
+
+/* Node Unlock Modal */
+.node-unlock-info {
+    padding: 1rem;
+}
+
+.node-unlock-info p {
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+}
+
+.node-unlock-info strong {
+    color: var(--color-text-secondary);
+    margin-right: 0.5rem;
+}
+
+.unlock-requirements {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-primary);
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.unlock-requirements h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text-primary);
+}
+
+.unlock-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.unlock-requirements li {
+    padding: 0.25rem 0;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+}
+
+.unlock-requirements li::before {
+    content: '• ';
+    color: var(--color-accent-primary);
+    margin-right: 0.5rem;
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    padding: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .tree-sidebar {
+        width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .skill-tree-content {
+        flex-direction: column;
+    }
+    
+    .tree-sidebar {
+        width: 100%;
+        max-height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .tree-legend {
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+    
+    .tree-controls {
+        flex-wrap: wrap;
+    }
+    
+    .skill-trees-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .skill-selector {
+        width: 100%;
+    }
+}
+
+/* Canvas Tooltips */
+.canvas-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-primary);
+    pointer-events: none;
+    z-index: 1000;
+    max-width: 200px;
+}
+
+/* Skill Tree Animations */
+@keyframes nodeUnlock {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pathGlow {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    }
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    }
+}
+
+/* Print Styles */
+@media print {
+    .skill-trees-container {
+        background: white;
+    }
+    
+    .tree-viewport {
+        background: white;
+    }
+    
+    .tree-sidebar {
+        display: none;
+    }
+    
+    .tree-controls {
+        display: none;
+    }
+    
+    #skill-tree-canvas {
+        width: 100%;
+        height: auto;
+    }
+}

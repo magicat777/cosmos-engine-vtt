@@ -26,6 +26,7 @@ import { NPCManager } from './components/NPCManager.js';
 import { WorldBuilder } from './components/WorldBuilder.js';
 import { AutomationTools } from './components/AutomationTools.js';
 import { DataSync } from './components/DataSync.js';
+import { SkillTrees } from './components/SkillTrees.js';
 
 class CosmosEngineVTT {
     constructor() {
@@ -94,6 +95,7 @@ class CosmosEngineVTT {
         this.router.addRoute('/world', () => this.showWorldBuilder());
         this.router.addRoute('/automation', () => this.showAutomationTools());
         this.router.addRoute('/sync', () => this.showDataSync());
+        this.router.addRoute('/skilltrees', () => this.showSkillTrees());
         this.router.addRoute('/import-export', () => this.showImportExport());
         this.router.addRoute('/settings', () => this.showSettings());
     }
@@ -112,7 +114,8 @@ class CosmosEngineVTT {
             { name: 'NPCManager', class: NPCManager, deps: [this.config, this.dataManager, this.stateManager] },
             { name: 'WorldBuilder', class: WorldBuilder, deps: [this.eventBus, this.dataManager] },
             { name: 'AutomationTools', class: AutomationTools, deps: [this.config, this.dataManager, this.eventBus] },
-            { name: 'DataSync', class: DataSync, deps: [this.config, this.dataManager, this.eventBus] }
+            { name: 'DataSync', class: DataSync, deps: [this.config, this.dataManager, this.eventBus] },
+            { name: 'SkillTrees', class: SkillTrees, deps: [this.config, this.dataManager, this.eventBus] }
         ];
 
         for (const component of componentList) {
@@ -167,6 +170,7 @@ class CosmosEngineVTT {
                         <li><a href="#/world">World Builder</a> - Create locations and factions</li>
                         <li><a href="#/automation">Automation Tools</a> - Macros and conditions</li>
                         <li><a href="#/sync">Data Sync</a> - Cloud saves and collaboration</li>
+                        <li><a href="#/skilltrees">Skill Trees</a> - Visual skill progression</li>
                         <li><a href="#/import-export">Import/Export</a> - Backup and share data</li>
                     </ul>
                 </div>
@@ -391,6 +395,24 @@ class CosmosEngineVTT {
         const container = document.getElementById('data-sync-component');
         if (dataSync && container) {
             container.appendChild(dataSync.render());
+        }
+    }
+    
+    showSkillTrees() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'skill-trees',
+            title: 'Skill Trees - Character Progression',
+            content: '<div id="skill-trees-component"></div>',
+            width: 1600,
+            height: 900
+        });
+        
+        // Initialize skill trees in the panel
+        const skillTrees = this.components.get('skilltrees');
+        const container = document.getElementById('skill-trees-component');
+        if (skillTrees && container) {
+            container.appendChild(skillTrees.render());
         }
     }
     
