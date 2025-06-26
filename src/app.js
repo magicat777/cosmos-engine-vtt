@@ -17,6 +17,7 @@ import { CharacterSheet } from './components/CharacterSheet.js';
 import { CombatTracker } from './components/CombatTracker.js';
 import { ScaleManager } from './components/ScaleManager.js';
 import { RulesReference } from './components/RulesReference.js';
+import { EncounterBuilder } from './components/EncounterBuilder.js';
 
 class CosmosEngineVTT {
     constructor() {
@@ -65,6 +66,7 @@ class CosmosEngineVTT {
         this.router.addRoute('/character', () => this.showCharacterSheet());
         this.router.addRoute('/dice', () => this.showDiceRoller());
         this.router.addRoute('/combat', () => this.showCombatTracker());
+        this.router.addRoute('/encounter', () => this.showEncounterBuilder());
         this.router.addRoute('/scales', () => this.showScaleManager());
         this.router.addRoute('/rules', () => this.showRulesReference());
         this.router.addRoute('/settings', () => this.showSettings());
@@ -90,6 +92,10 @@ class CosmosEngineVTT {
         // Initialize RulesReference
         const rulesReference = new RulesReference(this.config, this.dataManager);
         this.components.set('rulesReference', rulesReference);
+        
+        // Initialize EncounterBuilder
+        const encounterBuilder = new EncounterBuilder(this.config, this.dataManager, this.eventBus);
+        this.components.set('encounterBuilder', encounterBuilder);
         
         // More components will be added as they're developed
         console.log('Components initialized:', this.components.size);
@@ -124,6 +130,7 @@ class CosmosEngineVTT {
                         <li><a href="#/dice">Dice Roller</a> - Roll 2d10 with modifiers</li>
                         <li><a href="#/character">Character Sheet</a> - Manage your character</li>
                         <li><a href="#/combat">Combat Tracker</a> - Track initiative and damage</li>
+                        <li><a href="#/encounter">Encounter Builder</a> - Create balanced encounters</li>
                         <li><a href="#/scales">Scale Manager</a> - Convert damage between scales</li>
                         <li><a href="#/rules">Rules Reference</a> - Quick rule lookups</li>
                     </ul>
@@ -219,6 +226,24 @@ class CosmosEngineVTT {
         const container = document.getElementById('rules-reference-component');
         if (rulesReference && container) {
             rulesReference.init(container);
+        }
+    }
+    
+    showEncounterBuilder() {
+        this.panels.clear();
+        const panelId = this.panels.addPanel({
+            id: 'encounter-builder',
+            title: 'Encounter Builder - GM Tools',
+            content: '<div id="encounter-builder-component"></div>',
+            width: 1000,
+            height: 800
+        });
+        
+        // Initialize encounter builder in the panel
+        const encounterBuilder = this.components.get('encounterBuilder');
+        const container = document.getElementById('encounter-builder-component');
+        if (encounterBuilder && container) {
+            encounterBuilder.init(container);
         }
     }
     

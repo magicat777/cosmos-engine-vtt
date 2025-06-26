@@ -9,6 +9,7 @@
 @import './rules-reference.css';
 @import './combat-tracker.css';
 @import './scale-manager.css';
+@import './encounter-builder.css';
 
 /* CSS Custom Properties for theming */
 :root {

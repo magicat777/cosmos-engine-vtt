@@ -66,6 +66,11 @@ export class CombatTracker {
             this.applyDamage(data.targetId, data.damage, data.type);
         });
         
+        // Listen for encounter deployment from EncounterBuilder
+        this.eventBus.on('deploy-encounter', (data) => {
+            this.deployEncounter(data);
+        });
+        
         // Listen for character updates
         this.eventBus.on('character-updated', (data) => {
             this.updateCombatantFromCharacter(data);
@@ -769,5 +774,49 @@ export class CombatTracker {
         if (this.isActive && this.currentTurn) {
             this.startTurnTimer();
         }
+    }
+    
+    deployEncounter(data) {
+        // Clear existing combatants
+        this.combatants.clear();
+        
+        // Add NPCs from encounter
+        if (data.encounter && data.encounter.npcs) {
+            data.encounter.npcs.forEach((npc, index) => {
+                const combatant = {
+                    id: `npc-${Date.now()}-${index}`,
+                    name: npc.name,
+                    initiative: 0,
+                    initiativeModifier: npc.initiative || 0,
+                    currentHp: npc.hp,
+                    maxHp: npc.hp,
+                    defense: npc.defense || 10,
+                    type: 'npc',
+                    level: npc.level,
+                    conditions: [],
+                    role: npc.role,
+                    equipment: npc.equipment || []
+                };
+                
+                this.combatants.set(combatant.id, combatant);
+            });
+        }
+        
+        // Apply environmental effects if any
+        if (data.environment) {
+            this.addToLog(`Environmental hazard active: ${data.environment.name}`);
+        }
+        
+        // Reset combat state
+        this.round = 1;
+        this.currentTurn = null;
+        this.isActive = false;
+        
+        // Re-render
+        this.render();
+        this.attachEventListeners();
+        
+        // Log the deployment
+        this.addToLog(`Encounter "${data.encounter.name}" deployed with ${data.encounter.npcs.length} NPCs`);
     }
 }
