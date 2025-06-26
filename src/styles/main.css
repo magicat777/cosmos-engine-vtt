@@ -3,6 +3,10 @@
  * Design system with sci-fi aesthetic
  */
 
+/* Component imports */
+@import './dice-roller.css';
+@import './character-sheet.css';
+
 /* CSS Custom Properties for theming */
 :root {
     /* Color palette - Dark theme default */

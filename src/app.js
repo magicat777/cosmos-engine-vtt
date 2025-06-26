@@ -10,9 +10,9 @@ import { Config } from './config.js';
 import { DataManager } from './components/DataManager.js';
 import { PanelSystem } from './components/PanelSystem.js';
 
-// Component imports will be added as they're developed
-// import { DiceRoller } from './components/DiceRoller.js';
-// import { CharacterSheet } from './components/CharacterSheet.js';
+// Component imports
+import { DiceRoller } from './components/DiceRoller.js';
+import { CharacterSheet } from './components/CharacterSheet.js';
 // import { CombatTracker } from './components/CombatTracker.js';
 // import { RulesReference } from './components/RulesReference.js';
 
@@ -67,13 +67,16 @@ class CosmosEngineVTT {
     }
     
     async initializeComponents() {
-        // Components will be initialized as they're developed
-        console.log('Components initialization placeholder');
+        // Initialize DiceRoller
+        const diceRoller = new DiceRoller(this.config);
+        this.components.set('diceRoller', diceRoller);
         
-        // Example pattern:
-        // const diceRoller = new DiceRoller(this.dataManager);
-        // await diceRoller.init();
-        // this.components.set('diceRoller', diceRoller);
+        // Initialize CharacterSheet
+        const characterSheet = new CharacterSheet(this.config, this.dataManager);
+        this.components.set('characterSheet', characterSheet);
+        
+        // More components will be added as they're developed
+        console.log('Components initialized:', this.components.size);
     }
     
     loadLayout() {
@@ -114,20 +117,38 @@ class CosmosEngineVTT {
     
     showCharacterSheet() {
         this.panels.clear();
-        this.panels.addPanel({
+        const panelId = this.panels.addPanel({
             id: 'character-sheet',
-            title: 'Character Sheet',
-            content: '<p>Character sheet component coming soon...</p>'
+            title: 'Character Sheet - Cosmos Engine',
+            content: '<div id="character-sheet-component"></div>',
+            width: 700,
+            height: 800
         });
+        
+        // Initialize character sheet in the panel
+        const characterSheet = this.components.get('characterSheet');
+        const container = document.getElementById('character-sheet-component');
+        if (characterSheet && container) {
+            characterSheet.init(container);
+        }
     }
     
     showDiceRoller() {
         this.panels.clear();
-        this.panels.addPanel({
+        const panelId = this.panels.addPanel({
             id: 'dice-roller',
-            title: 'Dice Roller',
-            content: '<p>Dice roller component coming soon...</p>'
+            title: 'Dice Roller - 2d10 System',
+            content: '<div id="dice-roller-component"></div>',
+            width: 500,
+            height: 600
         });
+        
+        // Initialize dice roller in the panel
+        const diceRoller = this.components.get('diceRoller');
+        const container = document.getElementById('dice-roller-component');
+        if (diceRoller && container) {
+            diceRoller.init(container);
+        }
     }
     
     showCombatTracker() {

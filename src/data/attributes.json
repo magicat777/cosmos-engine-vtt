@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "attributes": {
+    "presence": {
+      "name": "Presence",
+      "abbreviation": "PRE",
+      "description": "Charisma, leadership, and social influence",
+      "color": "#9b59b6"
+    },
+    "resolve": {
+      "name": "Resolve",
+      "abbreviation": "RES",
+      "description": "Willpower, mental fortitude, and determination",
+      "color": "#e74c3c"
+    },
+    "intellect": {
+      "name": "Intellect",
+      "abbreviation": "INT",
+      "description": "Intelligence, reasoning, and knowledge",
+      "color": "#3498db"
+    },
+    "might": {
+      "name": "Might",
+      "abbreviation": "MIG",
+      "description": "Physical strength and endurance",
+      "color": "#e67e22"
+    },
+    "awareness": {
+      "name": "Awareness",
+      "abbreviation": "AWA",
+      "description": "Perception, intuition, and alertness",
+      "color": "#2ecc71"
+    },
+    "coordination": {
+      "name": "Coordination",
+      "abbreviation": "COO",
+      "description": "Dexterity, agility, and precision",
+      "color": "#f39c12"
+    }
+  }
+}

@@ -1,0 +1,388 @@
+/**
+ * CharacterSheet Component Styles
+ * Interactive character sheet with sci-fi aesthetic
+ */
+
+/* Container */
+.character-sheet {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    height: 100%;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+}
+
+/* Header */
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+.character-basics {
+    flex: 1;
+}
+
+.char-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: var(--color-accent-primary);
+    padding: 0;
+    margin-bottom: var(--spacing-sm);
+    width: 100%;
+}
+
+.char-name:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-accent-primary);
+}
+
+.char-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    font-size: 0.875rem;
+}
+
+.char-meta label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--color-text-secondary);
+}
+
+.char-meta input {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    width: 80px;
+}
+
+.sheet-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+/* Content sections */
+.sheet-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+section {
+    background-color: var(--color-bg-secondary);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+section h3 {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-text-primary);
+    font-size: 1.125rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+}
+
+/* Attributes */
+.attributes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.attribute-box {
+    background-color: var(--color-bg-tertiary);
+    border: 2px solid var(--attr-color, var(--color-border));
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.attribute-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.attribute-box label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--attr-color, var(--color-text-primary));
+}
+
+.attribute-input {
+    width: 60px;
+    height: 40px;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-mono);
+}
+
+.attribute-input:focus {
+    outline: none;
+    border-color: var(--attr-color, var(--color-accent-primary));
+    box-shadow: 0 0 0 2px rgba(var(--attr-color-rgb, 0, 212, 255), 0.2);
+}
+
+.attr-abbr {
+    display: block;
+    margin-top: var(--spacing-xs);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-mono);
+}
+
+/* Derived Stats */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.stat-box {
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+}
+
+.stat-box label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-accent-primary);
+    font-family: var(--font-family-mono);
+}
+
+.hp-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.hp-display input {
+    width: 60px;
+    font-size: 1.5rem;
+    text-align: center;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-mono);
+}
+
+/* Skills */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.skill-box {
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all var(--transition-fast);
+}
+
+.skill-box:hover {
+    border-color: var(--color-border-hover);
+}
+
+.skill-box label {
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+}
+
+.skill-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.skill-input {
+    width: 40px;
+    height: 28px;
+    text-align: center;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-mono);
+}
+
+.skill-total {
+    font-weight: bold;
+    color: var(--color-accent-primary);
+    font-family: var(--font-family-mono);
+    min-width: 30px;
+    text-align: right;
+}
+
+.skill-attr {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+/* Equipment */
+.equipment-slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.weapon-slot,
+.armor-slot {
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+}
+
+.equipment-slots h4 {
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+}
+
+.equipment-list {
+    min-height: 60px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.equipment-item {
+    padding: var(--spacing-sm);
+    background-color: var(--color-bg-primary);
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Notes */
+.char-notes {
+    width: 100%;
+    min-height: 100px;
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    resize: vertical;
+    font-family: inherit;
+}
+
+.char-notes:focus {
+    outline: none;
+    border-color: var(--color-accent-primary);
+}
+
+/* Notifications */
+.notification {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    z-index: var(--z-index-modal);
+    animation: slideIn var(--transition-normal);
+}
+
+.notification-success {
+    background-color: var(--color-accent-success);
+    color: var(--color-bg-primary);
+}
+
+.notification-warning {
+    background-color: var(--color-accent-warning);
+    color: var(--color-bg-primary);
+}
+
+.notification-error {
+    background-color: var(--color-accent-danger);
+    color: white;
+}
+
+.notification.fade-out {
+    animation: fadeOut var(--transition-normal);
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sheet-header {
+        flex-direction: column;
+    }
+    
+    .attributes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .equipment-slots {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark scrollbar */
+.character-sheet::-webkit-scrollbar {
+    width: 8px;
+}
+
+.character-sheet::-webkit-scrollbar-track {
+    background: var(--color-bg-primary);
+}
+
+.character-sheet::-webkit-scrollbar-thumb {
+    background: var(--color-bg-tertiary);
+    border-radius: 4px;
+}
+
+.character-sheet::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border);
+}
